@@ -2,7 +2,7 @@
 
 
 
-Una aplicación interactiva de preguntas técnicas diseñada para ayudarte a prepararte para exámenes o certificaciones tecnológicas, utilizando **HTML**, **CSS**, **JavaScript** y el framework **Tailwind CSS**.
+Una aplicación interactiva de preguntas técnicas diseñada para ayudarte a prepararte para exámenes.
 
 ---
 
@@ -17,7 +17,6 @@ Esta página web presenta un quiz dinámico con las siguientes características:
 - Mostrar explicación de la respuesta correcta.
 - Diseño totalmente responsivo gracias a Tailwind CSS.
 
-Ideal para proyectos educativos, plataformas de aprendizaje, o herramientas de autoevaluación técnica.
 
 ---
 
@@ -25,7 +24,7 @@ Ideal para proyectos educativos, plataformas de aprendizaje, o herramientas de a
 
 - **HTML5**
 - **CSS3** (con [Tailwind CSS v2.2.19](https://tailwindcss.com/))
-- **JavaScript Vanilla**
+- **JavaScript**
 - Iconos con **Font Awesome** (opcional)
 
 ---
