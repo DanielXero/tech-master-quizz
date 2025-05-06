@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz TechMaster | Práctica Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+
+    <div class="floating-bg bg-primary"></div>
+    <div class="floating-bg bg-secondary"></div>
+    
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        
+        <header class="text-center mb-12 fade-in">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 text-indigo-600 text-sm font-medium mb-4">
+                <i class="fas fa-graduation-cap mr-2"></i> Herramienta de preparación
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3 leading-tight">
+                Domina tu examen con <span class="text-indigo-600">TechMaster Quiz</span>
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Practica con este quiz interactivo y evalúa tus conocimientos de forma dinámica y efectiva.
+            </p>
+            
+           
+            <div class="mt-8 bg-white rounded-xl p-4 tech-card">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-500">
+                        Progreso: <span class="font-semibold text-indigo-600"><span id="current-question">0</span>/<span id="total-questions">0</span></span>
+                    </span>
+                    <span id="progress-percent" class="text-sm font-medium text-indigo-600">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="progress" class="progress-thumb" style="width: 0%"></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="fade-in" style="animation-delay: 0.2s">
+            <div id="quiz-container" class="tech-card overflow-hidden">
+                <div class="border-b border-gray-100 p-6 pb-4">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 font-bold">
+                                <span id="question-number">1</span>
+                            </div>
+                            <div>
+                                <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Pregunta actual</h2>
+                                <div id="difficulty" class="difficulty-chip difficulty-medium mt-1"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="timer" class="flex items-center bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-sm font-medium timer-pulse">
+                            <i class="far fa-clock mr-2"></i>
+                            <span id="time">00:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6 pt-4">
+                    <h3 id="question-text" class="text-xl md:text-2xl font-semibold text-gray-800 mb-6 leading-relaxed"></h3>
+                    
+                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6"></div>
+                    
+                    <div class="mt-6">
+                        <button id="explanation-toggle" class="flex items-center text-indigo-600 font-medium text-sm mb-2">
+                            <span>Ver explicación</span>
+                            <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-300"></i>
+                        </button>
+                        <div id="explanation" class="explanation-panel bg-indigo-50 rounded-lg overflow-hidden">
+                            <div class="p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2">Explicación detallada:</h4>
+                                <p id="explanation-text" class="text-gray-700 text-sm leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 px-6 py-4 flex justify-between border-t border-gray-100">
+                    <button id="prev-btn" class="btn-secondary px-5 py-2.5 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <i class="fas fa-arrow-left mr-2"></i> Anterior
+                    </button>
+                    <div class="flex items-center text-sm text-gray-500 font-medium">
+                        <span id="answered-count">0</span> de <span id="total-questions-2">0</span> respondidas
+                    </div>
+                    <button id="next-btn" class="btn-primary px-5 py-2.5 rounded-lg">
+                        Siguiente <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <button id="finish-btn" class="btn-primary hidden px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600">
+                        Finalizar <i class="fas fa-trophy ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <div id="results-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+            <div class="tech-card max-w-md w-full p-8 fade-in">
+                <div class="text-center">
+                    <div class="relative w-24 h-24 mx-auto mb-6">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                            <circle id="score-ring" cx="50" cy="50" r="45" fill="none" stroke="#6366f1" stroke-width="8" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center flex-col">
+                            <span id="score" class="text-3xl font-bold text-gray-900">0</span>
+                            <span class="text-xs text-gray-500">puntos</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">¡Quiz completado!</h3>
+                    <p class="text-gray-600 mb-6">Revisa tus resultados y sigue mejorando</p>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-indigo-50 p-3 rounded-lg">
+                            <div class="text-indigo-600 text-sm font-medium mb-1">Correctas</div>
+                            <div id="correct-answers" class="text-xl font-bold text-gray-900">0</div>
+                        </div>
+                        <div class="bg-amber-50 p-3 rounded-lg">
+                            <div class="text-amber-600 text-sm font-medium mb-1">Tiempo</div>
+                            <div id="final-time" class="text-xl font-bold text-gray-900">00:00</div>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <div class="text-green-600 text-sm font-medium mb-1">Porcentaje</div>
+                            <div id="percentage" class="text-xl font-bold text-gray-900">0%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button id="restart-btn" class="btn-secondary flex-1 py-3 rounded-lg">
+                            <i class="fas fa-redo mr-2"></i> Reintentar
+                        </button>
+                        <button id="close-btn" class="btn-primary flex-1 py-3 rounded-lg">
+                            Cerrar <i class="fas fa-times ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
