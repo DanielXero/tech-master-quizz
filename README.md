@@ -29,5 +29,3 @@ Ideal para proyectos educativos, plataformas de aprendizaje, o herramientas de a
 - Iconos con **Font Awesome** (opcional)
 
 ---
-
-## 📁 Estructura del Proyecto
